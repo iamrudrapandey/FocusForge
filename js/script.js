@@ -73,3 +73,52 @@ resetBtn.addEventListener('click', () => {
   pauseBtn.disabled = true;
   timerNote.textContent = '25 minutes of focused work.';
 });
+// Task list
+const taskForm = document.getElementById('taskForm');
+const taskInput = document.getElementById('taskInput');
+const taskList = document.getElementById('taskList');
+const emptyState = document.getElementById('emptyState');
+
+function refreshEmptyState() {
+  const hasTasks = taskList.querySelectorAll('li:not(.empty-state)').length > 0;
+  emptyState.style.display = hasTasks ? 'none' : 'block';
+}
+
+function addTask(text) {
+  const li = document.createElement('li');
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.setAttribute('aria-label', `Mark "${text}" as done`);
+
+  const span = document.createElement('span');
+  span.className = 'task-text';
+  span.textContent = text;
+
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'remove-btn';
+  removeBtn.setAttribute('aria-label', `Remove "${text}"`);
+  removeBtn.textContent = '\u00d7';
+
+  checkbox.addEventListener('change', () => {
+    span.classList.toggle('done', checkbox.checked);
+  });
+
+  removeBtn.addEventListener('click', () => {
+    li.remove();
+    refreshEmptyState();
+  });
+
+  li.append(checkbox, span, removeBtn);
+  taskList.appendChild(li);
+  refreshEmptyState();
+}
+
+taskForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const value = taskInput.value.trim();
+  if (!value) return;
+  addTask(value);
+  taskInput.value = '';
+  taskInput.focus();
+});
