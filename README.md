@@ -1,11 +1,11 @@
-FocusForge
+## FocusForge
 Project 1 — Responsive Frontend Interface
 DecodeLabs Full Stack Development Internship
 
 A single-page study companion built with pure **HTML5, CSS3, and vanilla JavaScript** — no frameworks, as required by the project brief.
 
 ## Live Demo
-[Add your GitHub Pages link here once enabled]
+(https://iamrudrapandey.github.io/FocusForge/)
 
 ## Features
 
@@ -23,14 +23,14 @@ A single-page study companion built with pure **HTML5, CSS3, and vanilla JavaScr
 - Google Fonts (Montserrat + Roboto)
 - Spotify embed player
 
-Accessibility
+## Accessibility
 
 - Keyboard-focus-visible states on all interactive elements
 - `aria-expanded`, `aria-controls`, `aria-label` on nav toggle and dynamic controls
 - `prefers-reduced-motion` respected
 - Semantic landmarks for screen reader navigation
 
- Run Locally
+ ## Run Locally
 
 Just open `index.html` in a browser, or use a live server:
 
