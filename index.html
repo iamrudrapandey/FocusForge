@@ -29,6 +29,7 @@
           <li><a href="#features">Features</a></li>
           <li><a href="#tasks">Today</a></li>
           <li><a href="#playlists">Playlists</a></li>
+          <li><a href="#flashcards">Notes</a></li>
           <li><a href="#contact" class="nav-cta">Get Started</a></li>
         </ul>
       </nav>
@@ -52,15 +53,21 @@
     </div>
 
     <div class="hero-widget" id="timer">
-      <h2 class="widget-title">Focus Timer</h2>
-      <p class="timer-display" id="timerDisplay">25:00</p>
-      <div class="timer-controls">
-        <button id="startBtn" class="btn btn-primary btn-small">Start</button>
-        <button id="pauseBtn" class="btn btn-ghost btn-small" disabled>Pause</button>
-        <button id="resetBtn" class="btn btn-ghost btn-small">Reset</button>
-      </div>
-      <p class="timer-note" id="timerNote">25 minutes of focused work.</p>
-    </div>
+  <h2 class="widget-title">Focus Timer</h2>
+
+  <div class="timer-setup">
+    <label for="minutesInput">Minutes</label>
+    <input type="number" id="minutesInput" value="25" min="1" max="180" />
+  </div>
+
+  <p class="timer-display" id="timerDisplay">25:00</p>
+  <div class="timer-controls">
+    <button id="startBtn" class="btn btn-primary btn-small">Start</button>
+    <button id="pauseBtn" class="btn btn-ghost btn-small" disabled>Pause</button>
+    <button id="resetBtn" class="btn btn-ghost btn-small">Reset</button>
+  </div>
+  <p class="timer-note" id="timerNote">25 minutes of focused work.</p>
+</div>
   </section>
   <section class="content-grid" id="features">
 
@@ -141,6 +148,20 @@
         title="Peaceful Piano playlist">
       </iframe>
     </div>
+  </div>
+</section>
+<section class="flashcard-section" id="flashcards">
+  <h2>Quick Flashcards</h2>
+  <p class="section-sub">Add a note. Give it a back side to turn it into a flashcard — click any card to flip it.</p>
+
+  <form id="cardForm" class="card-form">
+    <input type="text" id="cardFront" placeholder="Front (e.g. What is normalization?)" required />
+    <input type="text" id="cardBack" placeholder="Back (optional — leave blank for a plain note)" />
+    <button type="submit" class="btn btn-primary btn-small">Add Card</button>
+  </form>
+
+  <div class="card-grid" id="cardGrid">
+    <p class="empty-state" id="cardEmptyState">No cards yet — add your first one above.</p>
   </div>
 </section>
 

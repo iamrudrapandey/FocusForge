@@ -15,14 +15,15 @@ primaryNav.querySelectorAll('a').forEach((link) => {
   });
 });
 // Focus timer
+// Focus timer
 const timerDisplay = document.getElementById('timerDisplay');
 const timerNote = document.getElementById('timerNote');
 const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
+const minutesInput = document.getElementById('minutesInput');
 
-const SESSION_SECONDS = 25 * 60;
-let secondsLeft = SESSION_SECONDS;
+let secondsLeft = 25 * 60;
 let timerId = null;
 
 function formatTime(totalSeconds) {
@@ -45,14 +46,25 @@ function tick() {
     timerNote.textContent = 'Session complete — take a short break.';
     startBtn.disabled = false;
     pauseBtn.disabled = true;
+    minutesInput.disabled = false;
   }
 }
 
 startBtn.addEventListener('click', () => {
   if (timerId) return;
+
+  // Only read the input value if we're starting fresh (not resuming a pause)
+  if (secondsLeft === Number(minutesInput.value) * 60 || secondsLeft === 25 * 60) {
+    const mins = Math.min(Math.max(Number(minutesInput.value) || 25, 1), 180);
+    minutesInput.value = mins;
+    secondsLeft = mins * 60;
+    updateDisplay();
+  }
+
   timerId = setInterval(tick, 1000);
   startBtn.disabled = true;
   pauseBtn.disabled = false;
+  minutesInput.disabled = true;
   timerNote.textContent = 'Stay with it — you\u2019ve got this.';
 });
 
@@ -67,11 +79,13 @@ pauseBtn.addEventListener('click', () => {
 resetBtn.addEventListener('click', () => {
   clearInterval(timerId);
   timerId = null;
-  secondsLeft = SESSION_SECONDS;
+  const mins = Math.min(Math.max(Number(minutesInput.value) || 25, 1), 180);
+  secondsLeft = mins * 60;
   updateDisplay();
   startBtn.disabled = false;
   pauseBtn.disabled = true;
-  timerNote.textContent = '25 minutes of focused work.';
+  minutesInput.disabled = false;
+  timerNote.textContent = `${mins} minutes of focused work.`;
 });
 // Task list
 const taskForm = document.getElementById('taskForm');
@@ -121,4 +135,69 @@ taskForm.addEventListener('submit', (event) => {
   addTask(value);
   taskInput.value = '';
   taskInput.focus();
+});
+// Flashcards / sticky notes
+const cardForm = document.getElementById('cardForm');
+const cardFront = document.getElementById('cardFront');
+const cardBack = document.getElementById('cardBack');
+const cardGrid = document.getElementById('cardGrid');
+const cardEmptyState = document.getElementById('cardEmptyState');
+
+function refreshCardEmptyState() {
+  const hasCards = cardGrid.querySelectorAll('.sticky-note').length > 0;
+  cardEmptyState.style.display = hasCards ? 'none' : 'block';
+}
+
+function addCard(frontText, backText) {
+  const note = document.createElement('div');
+  note.className = 'sticky-note';
+
+  const inner = document.createElement('div');
+  inner.className = 'note-inner';
+
+  const front = document.createElement('div');
+  front.className = 'note-face note-front';
+  front.innerHTML = `<span class="note-tag">Front</span><span class="note-text"></span>`;
+  front.querySelector('.note-text').textContent = frontText;
+
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'note-remove';
+  removeBtn.textContent = '\u00d7';
+  removeBtn.setAttribute('aria-label', 'Remove card');
+  removeBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    note.remove();
+    refreshCardEmptyState();
+  });
+  front.appendChild(removeBtn);
+
+  inner.appendChild(front);
+
+  if (backText) {
+    const back = document.createElement('div');
+    back.className = 'note-face note-back';
+    back.innerHTML = `<span class="note-tag">Back</span><span class="note-text"></span>`;
+    back.querySelector('.note-text').textContent = backText;
+    inner.appendChild(back);
+
+    note.addEventListener('click', () => {
+      note.classList.toggle('flipped');
+    });
+  }
+
+  note.appendChild(inner);
+  cardGrid.appendChild(note);
+  refreshCardEmptyState();
+}
+
+cardForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const front = cardFront.value.trim();
+  const back = cardBack.value.trim();
+  if (!front) return;
+
+  addCard(front, back);
+  cardFront.value = '';
+  cardBack.value = '';
+  cardFront.focus();
 });
