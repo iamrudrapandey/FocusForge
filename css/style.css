@@ -360,3 +360,143 @@ ul {
   font-size: 0.92rem;
   color: #5a4a3d;
 }
+/* Footer */
+.site-footer {
+  background: var(--white);
+  padding: 2.5rem 1.25rem 1.5rem;
+}
+
+.footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(61, 46, 35, 0.08);
+}
+
+.footer-brand p:last-child {
+  font-size: 0.88rem;
+  color: #7a6a5d;
+  margin-top: 0.4rem;
+}
+
+.footer-links h3 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+
+.footer-links p {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #5a4a3d;
+}
+
+.footer-note {
+  max-width: 1180px;
+  margin: 1.25rem auto 0;
+  font-size: 0.78rem;
+  color: #a89a8d;
+  text-align: center;
+}
+/* Tablet — 768px and up */
+@media (min-width: 768px) {
+  .primary-nav {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    background: transparent;
+    border: none;
+  }
+
+  .primary-nav ul {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero-copy {
+    flex: 1.1;
+  }
+
+  .hero-widget {
+    flex: 0.9;
+  }
+
+  .feature-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Desktop — 1024px and up */
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 300px 1fr;
+    align-items: start;
+  }
+
+  .feature-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 90px;
+  }
+}
+/* Playlists */
+.playlist-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+}
+
+.playlist-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+  margin-bottom: 0.4rem;
+}
+
+.section-sub {
+  color: #5a4a3d;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.playlist-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.playlist-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 0.75rem;
+  border: 1px solid rgba(61, 46, 35, 0.08);
+  overflow: hidden;
+}
+
+.playlist-card iframe {
+  border-radius: 10px;
+  display: block;
+}
